@@ -1,4 +1,4 @@
-import portrait from "@/assets/about-portrait.jpg";
+import portrait from "@/assets/about-portrait.webp.asset.json";
 import { site } from "@/lib/site";
 import { Reveal } from "./reveal";
 
@@ -8,18 +8,19 @@ export function AboutSection() {
       <div className="mx-auto grid max-w-screen-xl grid-cols-1 items-center gap-16 px-6 md:grid-cols-2 md:gap-24">
         <Reveal className="relative">
           <img
-            src={portrait}
-            alt="Saha holding a vintage film camera, half in shadow"
+            src={portrait.url}
+            alt="Supratik Saha holding a camera in front of a colourful city illustration"
             loading="lazy"
             width={800}
-            height={1008}
-            className="aspect-[4/5] w-full object-cover grayscale"
+            height={1000}
+            className="aspect-[4/5] w-full object-contain"
           />
           <div
             className="absolute -right-8 -bottom-8 hidden h-48 w-48 bg-accent md:block"
             aria-hidden="true"
           />
         </Reveal>
+
 
         <Reveal delay={150}>
           <h2 className="mb-10 font-display text-4xl italic md:mb-12 md:text-6xl">
