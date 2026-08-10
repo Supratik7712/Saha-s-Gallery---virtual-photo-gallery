@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(mediaQueryOptions),
   head: () => ({
     meta: [
-      { title: "Saha Gallery — A Virtual Exhibition of Light & Shadow" },
+      { title: "Saha's Gallery — A Virtual Exhibition of What I See Through My Lens" },
       {
         name: "description",
         content:
@@ -71,7 +71,7 @@ function GalleryPage() {
   const videos = items.filter((item) => item.media_type === "video");
   const visible = activeTab === "photos" ? photos : videos;
 
-  const openItem = search.item ? items.find((item) => item.id === search.item) : undefined;
+  const openItem = (search as any).item ? items.find((item) => item.id === (search as any).item) : undefined;
   const lightboxList =
     openItem && visible.some((item) => item.id === openItem.id) ? visible : items;
 
