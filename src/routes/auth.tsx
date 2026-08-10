@@ -182,3 +182,4 @@ function AuthPage() {
   );
 }
 
+// trigger route regen
