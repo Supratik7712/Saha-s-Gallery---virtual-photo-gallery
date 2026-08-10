@@ -7,7 +7,7 @@ export function SiteFooter() {
     <footer className="border-t border-border/50 px-6 py-12">
       <div className="mx-auto flex max-w-screen-xl flex-col items-center justify-between gap-8 md:flex-row">
         <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-          {site.footerNote} © {new Date().getFullYear()} {site.name}
+          {site.footerNote} © {new Date().getFullYear()} {site.name.toUpperCase()}
         </p>
         <div className="flex items-center gap-8">
           <a

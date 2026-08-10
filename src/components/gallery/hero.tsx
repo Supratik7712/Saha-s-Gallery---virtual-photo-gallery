@@ -19,7 +19,7 @@ export function Hero() {
         <h1 className="font-display text-[13vw] leading-none tracking-tighter text-balance italic md:text-[10vw]">
           {site.name}
         </h1>
-        <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.4em] text-accent">
+        <p className="mt-6 whitespace-pre-line font-mono text-[11px] uppercase tracking-[0.4em] text-accent">
           {site.tagline}
         </p>
       </div>
