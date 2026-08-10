@@ -1,24 +1,125 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useCallback } from "react";
+import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { zodValidator, fallback } from "@tanstack/zod-adapter";
+import { z } from "zod";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
+import { mediaQueryOptions } from "@/lib/media";
+import { SiteNav } from "@/components/gallery/site-nav";
+import { Hero } from "@/components/gallery/hero";
+import { GalleryGrid } from "@/components/gallery/gallery-grid";
+import { Lightbox } from "@/components/gallery/lightbox";
+import { AboutSection } from "@/components/gallery/about-section";
+import { SiteFooter } from "@/components/gallery/site-footer";
+
+const searchSchema = z.object({
+  tab: fallback(z.string(), "photos").default("photos"),
+  item: z.string().optional(),
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+export const Route = createFileRoute("/")({
+  validateSearch: zodValidator(searchSchema),
+  loader: ({ context }) => context.queryClient.ensureQueryData(mediaQueryOptions),
+  head: () => ({
+    meta: [
+      { title: "Saha Gallery — A Virtual Exhibition of Light & Shadow" },
+      {
+        name: "description",
+        content:
+          "Saha Gallery is a virtual exhibition of photography and film. Browse the frames, read their stories, and download every piece in full quality — free.",
+      },
+      { property: "og:title", content: "Saha Gallery — A Virtual Exhibition of Light & Shadow" },
+      {
+        property: "og:description",
+        content:
+          "A virtual exhibition of photography and film. Browse the frames, read their stories, and download every piece in full quality — free.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: GalleryPage,
+  errorComponent: GalleryError,
+});
+
+function GalleryError({ error }: { error: Error }) {
+  const router = useRouter();
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-6 text-center">
+      <h1 className="font-display text-4xl italic">The gallery couldn't open</h1>
+      <p className="mt-4 max-w-md text-sm text-muted-foreground">
+        {error.message || "Something interrupted the exhibition. Please try again."}
+      </p>
+      <button
+        type="button"
+        onClick={() => router.invalidate()}
+        className="mt-8 bg-primary px-6 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+      >
+        Try again
+      </button>
+    </div>
+  );
+}
+
+function GalleryPage() {
+  const { data: items } = useSuspenseQuery(mediaQueryOptions);
+  const search = Route.useSearch();
+  const navigate = useNavigate({ from: "/" });
+
+  const activeTab: "photos" | "videos" = search.tab === "videos" ? "videos" : "photos";
+  const photos = items.filter((item) => item.media_type === "photo");
+  const videos = items.filter((item) => item.media_type === "video");
+  const visible = activeTab === "photos" ? photos : videos;
+
+  const openItem = search.item ? items.find((item) => item.id === search.item) : undefined;
+  const lightboxList =
+    openItem && visible.some((item) => item.id === openItem.id) ? visible : items;
+
+  const setTab = useCallback(
+    (tab: "photos" | "videos") => {
+      void navigate({
+        search: (prev: { tab: string; item?: string }) => ({ ...prev, tab, item: undefined }),
+      });
+    },
+    [navigate],
+  );
+  const openItemById = useCallback(
+    (id: string) => {
+      void navigate({
+        search: (prev: { tab: string; item?: string }) => ({ ...prev, item: id }),
+      });
+    },
+    [navigate],
+  );
+  const closeItem = useCallback(() => {
+    void navigate({
+      search: (prev: { tab: string; item?: string }) => ({ ...prev, item: undefined }),
+    });
+  }, [navigate]);
+
+  return (
+    <div className="min-h-screen bg-background font-sans text-foreground">
+      <SiteNav />
+      <Hero />
+      <main>
+        <GalleryGrid
+          items={visible}
+          activeTab={activeTab}
+          counts={{ photos: photos.length, videos: videos.length }}
+          onTabChange={setTab}
+          onSelect={openItemById}
+        />
+        <AboutSection />
+      </main>
+      <SiteFooter />
+      {openItem ? (
+        <Lightbox
+          items={lightboxList}
+          currentId={openItem.id}
+          onClose={closeItem}
+          onNavigate={openItemById}
+        />
+      ) : null}
     </div>
   );
 }
