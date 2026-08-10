@@ -77,18 +77,24 @@ function GalleryPage() {
 
   const setTab = useCallback(
     (tab: "photos" | "videos") => {
-      void navigate({ search: (prev) => ({ ...prev, tab, item: undefined }) });
+      void navigate({
+        search: (prev: { tab: string; item?: string }) => ({ ...prev, tab, item: undefined }),
+      });
     },
     [navigate],
   );
   const openItemById = useCallback(
     (id: string) => {
-      void navigate({ search: (prev) => ({ ...prev, item: id }) });
+      void navigate({
+        search: (prev: { tab: string; item?: string }) => ({ ...prev, item: id }),
+      });
     },
     [navigate],
   );
   const closeItem = useCallback(() => {
-    void navigate({ search: (prev) => ({ ...prev, item: undefined }) });
+    void navigate({
+      search: (prev: { tab: string; item?: string }) => ({ ...prev, item: undefined }),
+    });
   }, [navigate]);
 
   return (
