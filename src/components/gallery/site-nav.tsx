@@ -28,7 +28,14 @@ export function SiteNav() {
         >
           About
         </a>
+        <Link
+          to="/auth"
+          className="border border-current px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] transition-colors hover:bg-foreground hover:text-background"
+        >
+          Sign in
+        </Link>
       </div>
     </nav>
   );
 }
+
