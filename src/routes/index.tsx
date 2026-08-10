@@ -66,7 +66,7 @@ function GalleryPage() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/" });
 
-  const activeTab: "photos" | "videos" = search.tab === "videos" ? "videos" : "photos";
+  const activeTab: "photos" | "videos" = (search as any).tab === "videos" ? "videos" : "photos";
   const photos = items.filter((item) => item.media_type === "photo");
   const videos = items.filter((item) => item.media_type === "video");
   const visible = activeTab === "photos" ? photos : videos;
