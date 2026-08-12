@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
@@ -18,7 +18,6 @@ import { VisitTracker } from "@/components/gallery/visit-tracker";
 const searchSchema = z.object({
   tab: fallback(z.string(), "photos").default("photos"),
   item: z.string().optional(),
-  q: fallback(z.string(), "").default(""),
 });
 
 
