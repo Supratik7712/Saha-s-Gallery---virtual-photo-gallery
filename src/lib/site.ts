@@ -15,6 +15,8 @@ export const site = {
     "Each image and video sequence is available for public download, a gift from my journey to yours. Beauty belongs to those who look long enough to find it.",
   ],
   footerNote: "BUILT FOR THE CURIOUS.",
+  /** Only this account may access the Curator Studio. */
+  curatorEmail: "supratiksaha2022s@gmail.com",
   contact: {
     email: "supratiksaha2022s@gmail.com",
     /** Leave empty to hide the phone row. */
