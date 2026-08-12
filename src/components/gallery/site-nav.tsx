@@ -16,7 +16,7 @@ export function SiteNav() {
         <a
           href={site.instagramUrl}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="font-mono text-[10px] uppercase tracking-[0.3em] transition-colors hover:text-accent"
         >
           Instagram
