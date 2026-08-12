@@ -6,16 +6,6 @@ import { Reveal } from "./reveal";
 
 type GalleryTab = "photos" | "videos";
 
-/** Editorial rhythm: alternating spans, aspects, and vertical offsets. */
-const PATTERN = [
-  { span: "md:col-span-7", aspect: "aspect-[4/5]", offset: "" },
-  { span: "md:col-span-5", aspect: "aspect-[3/4]", offset: "md:mt-32" },
-  { span: "md:col-span-12", aspect: "aspect-[21/9]", offset: "" },
-  { span: "md:col-span-5", aspect: "aspect-square", offset: "md:mt-24" },
-  { span: "md:col-span-7", aspect: "aspect-[16/10]", offset: "" },
-  { span: "md:col-span-6", aspect: "aspect-[3/4]", offset: "md:mt-16" },
-  { span: "md:col-span-6", aspect: "aspect-[4/5]", offset: "" },
-] as const;
 
 interface GalleryGridProps {
   items: MediaItem[];
