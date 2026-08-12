@@ -142,5 +142,3 @@ function GalleryCard({ item, index, onSelect }: GalleryCardProps) {
     </Reveal>
   );
 }
-
-}
