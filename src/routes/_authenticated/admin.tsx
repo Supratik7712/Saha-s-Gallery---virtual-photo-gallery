@@ -14,6 +14,8 @@ import {
 } from "@/lib/media.functions";
 import { mediaQueryOptions, mediaUrl, type MediaItem } from "@/lib/media";
 import { site } from "@/lib/site";
+import { VisitorStats } from "@/components/gallery/visitor-stats";
+
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
