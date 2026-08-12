@@ -4,6 +4,8 @@ import { site } from "@/lib/site";
 import { Reveal } from "./reveal";
 
 export function ContactSection() {
+  const phone: string = site.contact.phone;
+
   return (
     <section id="contact" className="border-t border-border/50 px-6 py-24 md:py-32">
       <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-14 md:grid-cols-12 md:gap-20">
