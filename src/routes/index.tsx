@@ -16,7 +16,9 @@ import { SiteFooter } from "@/components/gallery/site-footer";
 const searchSchema = z.object({
   tab: fallback(z.string(), "photos").default("photos"),
   item: z.string().optional(),
+  q: fallback(z.string(), "").default(""),
 });
+
 
 export const Route = createFileRoute("/")({
   validateSearch: zodValidator(searchSchema),
