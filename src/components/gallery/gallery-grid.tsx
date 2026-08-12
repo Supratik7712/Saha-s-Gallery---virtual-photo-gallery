@@ -1,4 +1,4 @@
-import { Download, Play } from "lucide-react";
+import { Download, Play, Search, X } from "lucide-react";
 
 import { mediaDownloadUrl, mediaUrl, type MediaItem } from "@/lib/media";
 import { site } from "@/lib/site";
