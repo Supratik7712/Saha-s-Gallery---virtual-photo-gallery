@@ -9,7 +9,7 @@ import updateGalleryItem from "./tools/update-gallery-item";
 const projectRef = import.meta.env["VITE_SUPABASE_PROJECT_ID"] ?? "project-ref-unset";
 
 export default defineMcp({
-  name: "saha-s-gallery",
+  name: "saha-creative-space",
   title: "Saha Creative Space",
   version: "0.1.0",
   instructions:
