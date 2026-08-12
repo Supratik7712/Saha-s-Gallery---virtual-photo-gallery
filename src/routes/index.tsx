@@ -105,6 +105,7 @@ function GalleryPage() {
       void navigate({
         search: (prev: { tab: string; item?: string; q: string }) => ({ ...prev, q, item: undefined }),
         replace: true,
+        scroll: false,
       });
     },
     [navigate],
