@@ -70,8 +70,20 @@ function GalleryPage() {
   const navigate = useNavigate({ from: "/" });
 
   const activeTab: "photos" | "videos" = (search as any).tab === "videos" ? "videos" : "photos";
-  const photos = items.filter((item) => item.media_type === "photo");
-  const videos = items.filter((item) => item.media_type === "video");
+  const query = String((search as any).q ?? "");
+  const needle = query.trim().toLowerCase();
+
+  const matches = needle
+    ? items.filter((item) => {
+        const filename = item.file_path.split("/").pop() ?? item.file_path;
+        return [item.title, item.caption, item.location, filename]
+          .filter(Boolean)
+          .some((field) => String(field).toLowerCase().includes(needle));
+      })
+    : items;
+
+  const photos = matches.filter((item) => item.media_type === "photo");
+  const videos = matches.filter((item) => item.media_type === "video");
   const visible = activeTab === "photos" ? photos : videos;
 
   const openItem = (search as any).item ? items.find((item) => item.id === (search as any).item) : undefined;
@@ -81,7 +93,16 @@ function GalleryPage() {
   const setTab = useCallback(
     (tab: "photos" | "videos") => {
       void navigate({
-        search: (prev: { tab: string; item?: string }) => ({ ...prev, tab, item: undefined }),
+        search: (prev: { tab: string; item?: string; q: string }) => ({ ...prev, tab, item: undefined }),
+      });
+    },
+    [navigate],
+  );
+  const setQuery = useCallback(
+    (q: string) => {
+      void navigate({
+        search: (prev: { tab: string; item?: string; q: string }) => ({ ...prev, q, item: undefined }),
+        replace: true,
       });
     },
     [navigate],
@@ -89,14 +110,14 @@ function GalleryPage() {
   const openItemById = useCallback(
     (id: string) => {
       void navigate({
-        search: (prev: { tab: string; item?: string }) => ({ ...prev, item: id }),
+        search: (prev: { tab: string; item?: string; q: string }) => ({ ...prev, item: id }),
       });
     },
     [navigate],
   );
   const closeItem = useCallback(() => {
     void navigate({
-      search: (prev: { tab: string; item?: string }) => ({ ...prev, item: undefined }),
+      search: (prev: { tab: string; item?: string; q: string }) => ({ ...prev, item: undefined }),
     });
   }, [navigate]);
 
@@ -111,7 +132,10 @@ function GalleryPage() {
           counts={{ photos: photos.length, videos: videos.length }}
           onTabChange={setTab}
           onSelect={openItemById}
+          query={query}
+          onQueryChange={setQuery}
         />
+
         <AboutSection />
         <ContactSection />
       </main>
