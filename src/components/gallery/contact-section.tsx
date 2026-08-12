@@ -25,14 +25,15 @@ export function ContactSection() {
               value={site.contact.email}
               href={`mailto:${site.contact.email}`}
             />
-            {site.contact.phone ? (
+            {phone ? (
               <ContactRow
                 icon={<Phone className="h-4 w-4" aria-hidden="true" />}
                 label="Phone"
-                value={site.contact.phone}
-                href={`tel:${site.contact.phone.replace(/[^+\d]/g, "")}`}
+                value={phone}
+                href={`tel:${phone.replace(/[^+\d]/g, "")}`}
               />
             ) : null}
+
             <ContactRow
               icon={<Instagram className="h-4 w-4" aria-hidden="true" />}
               label="Instagram"
