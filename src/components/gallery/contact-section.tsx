@@ -13,7 +13,7 @@ export function ContactSection() {
   return (
     <section id="contact" className="border-t border-border/50 px-4 py-20 sm:px-6 md:py-32">
       <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-12 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-10 lg:gap-20">
-        <Reveal>
+        <Reveal className="min-w-0">
           <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent">
             Collaborate
           </p>
@@ -23,7 +23,7 @@ export function ContactSection() {
           </p>
         </Reveal>
 
-        <Reveal delay={150}>
+        <Reveal delay={150} className="min-w-0">
           <div className="divide-y divide-border/50 border-y border-border/50">
             <ContactRow
               icon={<Mail className="h-4 w-4" aria-hidden="true" />}
