@@ -35,7 +35,7 @@ export function AboutSection() {
             <a
               href={site.instagramUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="font-mono text-sm uppercase tracking-[0.2em] underline decoration-accent underline-offset-8"
             >
               {site.instagramHandle}

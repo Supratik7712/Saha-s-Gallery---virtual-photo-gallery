@@ -13,7 +13,7 @@ export function SiteFooter() {
           <a
             href={site.instagramUrl}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-accent"
           >
             Instagram
