@@ -16,6 +16,7 @@ export default defineTool({
     taken_year: z.number().int().min(1800).max(2100).nullable().optional(),
     sort_order: z.number().int().optional(),
   },
+  outputSchema: { item: z.record(z.string(), z.unknown()) },
   annotations: { readOnlyHint: false, destructiveHint: false, openWorldHint: false },
   handler: async ({ id, ...fields }, ctx) => {
     if (!ctx.isAuthenticated()) {

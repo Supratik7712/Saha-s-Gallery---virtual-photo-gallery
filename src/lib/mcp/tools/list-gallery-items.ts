@@ -24,6 +24,7 @@ export default defineTool({
       .describe("Free-text filter over title, caption and location."),
     limit: z.number().int().min(1).max(100).default(25).describe("Max items to return."),
   },
+  outputSchema: { count: z.number(), items: z.array(z.record(z.string(), z.unknown())) },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async ({ media_type, search, limit }, ctx) => {
     if (!ctx.isAuthenticated()) {

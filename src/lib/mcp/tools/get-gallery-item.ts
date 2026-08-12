@@ -12,6 +12,7 @@ export default defineTool({
   description:
     "Fetch one gallery item by id, including its public stream URL and download URL paths.",
   inputSchema: { id: z.string().uuid().describe("The gallery item id.") },
+  outputSchema: { item: z.record(z.string(), z.unknown()) },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async ({ id }, ctx) => {
     if (!ctx.isAuthenticated()) {
