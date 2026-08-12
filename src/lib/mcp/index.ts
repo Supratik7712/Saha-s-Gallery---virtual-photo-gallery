@@ -1,4 +1,4 @@
-import { defineMcp, auth } from "@lovable.dev/mcp-js";
+import { defineMcp, auth, type ToolDefinition } from "@lovable.dev/mcp-js";
 
 import getGalleryItem from "./tools/get-gallery-item";
 import listGalleryItems from "./tools/list-gallery-items";
@@ -18,5 +18,5 @@ export default defineMcp({
     issuer: `https://${projectRef}.supabase.co/auth/v1`,
     acceptedAudiences: "authenticated",
   }),
-  tools: [listGalleryItems, getGalleryItem, updateGalleryItem],
+  tools: [listGalleryItems, getGalleryItem, updateGalleryItem] as ToolDefinition[],
 });
