@@ -15,9 +15,21 @@ interface GalleryGridProps {
   counts: { photos: number; videos: number };
   onTabChange: (tab: GalleryTab) => void;
   onSelect: (id: string) => void;
+  query: string;
+  onQueryChange: (query: string) => void;
 }
 
-export function GalleryGrid({ items, activeTab, counts, onTabChange, onSelect }: GalleryGridProps) {
+export function GalleryGrid({
+  items,
+  activeTab,
+  counts,
+  onTabChange,
+  onSelect,
+  query,
+  onQueryChange,
+}: GalleryGridProps) {
+  const searching = query.trim().length > 0;
+
   return (
     <section className="mx-auto max-w-screen-xl px-4 py-20 sm:px-6 md:py-32">
       <div className="mb-12 flex flex-col justify-between gap-8 border-b border-border/50 pb-8 md:mb-20 md:flex-row md:items-end">
@@ -38,7 +50,31 @@ export function GalleryGrid({ items, activeTab, counts, onTabChange, onSelect }:
             </button>
           ))}
         </div>
-        <div className="flex max-w-xs flex-col items-start gap-3 md:items-end">
+        <div className="flex w-full max-w-sm flex-col items-start gap-3 md:items-end">
+          <div className="relative w-full">
+            <Search
+              className="pointer-events-none absolute top-1/2 left-3 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground"
+              aria-hidden="true"
+            />
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => onQueryChange(event.target.value)}
+              placeholder="Search captions or filenames"
+              aria-label="Search photos and videos by caption or filename"
+              className="h-11 w-full border border-border/60 bg-secondary/40 pr-9 pl-9 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none"
+            />
+            {searching ? (
+              <button
+                type="button"
+                onClick={() => onQueryChange("")}
+                aria-label="Clear search"
+                className="absolute top-1/2 right-2 -translate-y-1/2 p-1 text-muted-foreground transition-colors hover:text-accent"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            ) : null}
+          </div>
           <LiveViewers />
           {site.intro ? (
             <p className="text-left font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground md:text-right">
@@ -52,13 +88,16 @@ export function GalleryGrid({ items, activeTab, counts, onTabChange, onSelect }:
       {items.length === 0 ? (
         <div className="py-32 text-center">
           <p className="font-display text-3xl italic text-foreground">
-            The gallery awaits its first frame.
+            {searching ? "No frames match that search." : "The gallery awaits its first frame."}
           </p>
           <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            New works are being developed in the darkroom — check back soon
+            {searching
+              ? "Try another caption, title or filename"
+              : "New works are being developed in the darkroom — check back soon"}
           </p>
         </div>
       ) : (
+
         <div
           key={activeTab}
           className="animate-reveal grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-12"
