@@ -49,7 +49,7 @@ export function Lightbox({ items, currentId, onClose, onNavigate }: LightboxProp
       role="dialog"
       aria-modal="true"
       aria-label={item.title}
-      className="animate-reveal fixed inset-0 z-[100] flex items-center justify-center bg-background/95 p-6 backdrop-blur-sm [animation-duration:300ms]"
+      className="animate-reveal fixed inset-0 z-[100] overflow-y-auto bg-background/95 px-4 py-20 backdrop-blur-sm sm:px-6 md:flex md:items-center md:justify-center md:py-16 [animation-duration:300ms]"
       onClick={onClose}
     >
       <button
@@ -57,14 +57,14 @@ export function Lightbox({ items, currentId, onClose, onNavigate }: LightboxProp
         type="button"
         onClick={onClose}
         aria-label="Close"
-        className="absolute top-6 right-6 z-10 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-accent"
+        className="fixed top-4 right-4 z-10 flex min-h-11 items-center gap-2 bg-background/80 px-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground backdrop-blur-sm transition-colors hover:text-accent sm:top-6 sm:right-6 sm:tracking-[0.3em]"
       >
         Close
         <X className="h-4 w-4" aria-hidden="true" />
       </button>
 
       <div
-        className="grid w-full max-w-6xl grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-14"
+        className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 md:grid-cols-12 md:gap-14"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-center justify-center md:col-span-8">
@@ -75,14 +75,14 @@ export function Lightbox({ items, currentId, onClose, onNavigate }: LightboxProp
               controls
               autoPlay
               playsInline
-              className="max-h-[70vh] w-full object-contain"
+              className="max-h-[55svh] w-full object-contain md:max-h-[70vh]"
             />
           ) : (
             <img
               key={item.id}
               src={mediaUrl(item.file_path)}
               alt={item.caption ? `${item.title} — ${item.caption}` : item.title}
-              className="max-h-[70vh] w-full object-contain"
+              className="max-h-[55svh] w-full object-contain md:max-h-[70vh]"
             />
           )}
         </div>

@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 
 export function Hero() {
   return (
-    <header className="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden px-6">
+    <header className="relative flex min-h-[88svh] flex-col items-center justify-center overflow-hidden px-4 sm:min-h-[92vh] sm:px-6">
       <div className="absolute inset-0 z-0 opacity-40 grayscale">
         <img
           src={heroImage}
@@ -16,15 +16,15 @@ export function Hero() {
       </div>
 
       <div className="animate-reveal relative z-10 text-center">
-        <h1 className="font-display text-[13vw] leading-none tracking-tighter text-balance italic md:text-[10vw]">
+        <h1 className="font-display text-6xl leading-none text-balance italic sm:text-8xl md:text-[10vw]">
           {site.name}
         </h1>
-        <p className="mt-6 whitespace-pre-line font-mono text-[11px] uppercase tracking-[0.4em] text-accent">
+        <p className="mx-auto mt-6 max-w-[34rem] whitespace-pre-line font-mono text-[9px] leading-6 uppercase tracking-[0.2em] text-accent sm:text-[11px] sm:tracking-[0.4em]">
           {site.tagline}
         </p>
       </div>
 
-      <div className="animate-reveal absolute bottom-12 left-1/2 -translate-x-1/2 [animation-delay:400ms]">
+      <div className="animate-reveal absolute bottom-8 left-1/2 -translate-x-1/2 sm:bottom-12 [animation-delay:400ms]">
         <div className="h-16 w-px bg-gradient-to-b from-foreground to-transparent" />
       </div>
     </header>

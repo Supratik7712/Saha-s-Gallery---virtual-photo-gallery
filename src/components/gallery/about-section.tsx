@@ -4,8 +4,8 @@ import { Reveal } from "./reveal";
 
 export function AboutSection() {
   return (
-    <section id="about" className="bg-foreground py-24 text-background md:py-32">
-      <div className="mx-auto grid max-w-screen-xl grid-cols-1 items-center gap-16 px-6 md:grid-cols-2 md:gap-24">
+    <section id="about" className="bg-foreground py-20 text-background md:py-32">
+      <div className="mx-auto grid max-w-screen-xl grid-cols-1 items-center gap-14 px-4 sm:px-6 md:grid-cols-2 md:gap-24">
         <Reveal className="relative">
           <img
             src={portrait.url}
@@ -31,12 +31,12 @@ export function AboutSection() {
               <p key={paragraph.slice(0, 24)}>{paragraph}</p>
             ))}
           </div>
-          <div className="mt-12 flex items-center gap-6">
+          <div className="mt-12 flex min-w-0 flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-6">
             <a
               href={site.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-sm uppercase tracking-[0.2em] underline decoration-accent underline-offset-8"
+              className="max-w-full break-all font-mono text-xs uppercase tracking-[0.15em] underline decoration-accent underline-offset-8 sm:text-sm sm:tracking-[0.2em]"
             >
               {site.instagramHandle}
             </a>
