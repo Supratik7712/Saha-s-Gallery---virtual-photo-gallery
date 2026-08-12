@@ -3,6 +3,8 @@ import { Download, Play } from "lucide-react";
 import { mediaDownloadUrl, mediaUrl, type MediaItem } from "@/lib/media";
 import { site } from "@/lib/site";
 import { Reveal } from "./reveal";
+import { LiveViewers } from "./live-viewers";
+
 
 type GalleryTab = "photos" | "videos";
 
