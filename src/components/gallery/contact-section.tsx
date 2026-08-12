@@ -26,6 +26,7 @@ export function ContactSection() {
               label="Email"
               value={site.contact.email}
               href={`mailto:${site.contact.email}`}
+              external
             />
             {phone ? (
               <ContactRow
@@ -47,6 +48,8 @@ export function ContactSection() {
 
           <a
             href={`mailto:${site.contact.email}?subject=Collaboration%20with%20S.Saha%20Photography`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-10 inline-flex items-center gap-3 bg-accent px-8 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-accent-foreground ring-1 ring-accent transition-colors hover:bg-transparent hover:text-accent"
           >
             <Mail className="h-4 w-4" aria-hidden="true" />
