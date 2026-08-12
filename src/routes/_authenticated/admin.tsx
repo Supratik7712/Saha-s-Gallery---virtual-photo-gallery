@@ -300,8 +300,10 @@ function AdminStudio({ email }: { email: string | null }) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-6 py-12">
+      <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+        <VisitorStats />
         <section className="border border-border/50 p-6 md:p-10">
+
           <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-accent">
             Add a new piece
           </h2>
