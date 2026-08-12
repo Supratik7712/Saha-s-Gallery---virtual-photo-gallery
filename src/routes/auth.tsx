@@ -7,7 +7,18 @@ import { site } from "@/lib/site";
 
 const CURATOR_EMAIL = site.curatorEmail.toLowerCase();
 
+function safeNext(value: unknown): string | undefined {
+  if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//")) {
+    return undefined;
+  }
+  return value;
+}
+
 export const Route = createFileRoute("/auth")({
+  validateSearch: (search: Record<string, unknown>): { next?: string } => {
+    const next = safeNext(search["next"]);
+    return next ? { next } : {};
+  },
   head: () => ({
     meta: [
       { title: `Curator Sign In — ${site.name}` },
@@ -19,6 +30,14 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
+  const { next } = Route.useSearch();
+  const goNext = () => {
+    if (next) {
+      window.location.href = next;
+      return;
+    }
+    void navigate({ to: "/admin", replace: true });
+  };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -29,7 +48,7 @@ function AuthPage() {
     void supabase.auth.getUser().then(({ data }) => {
       if (!data.user) return;
       if (data.user.email?.toLowerCase() === CURATOR_EMAIL) {
-        void navigate({ to: "/admin", replace: true });
+        goNext();
       } else {
         void supabase.auth.signOut();
       }
@@ -54,7 +73,7 @@ function AuthPage() {
         setError(signInError.message);
         return;
       }
-      void navigate({ to: "/admin", replace: true });
+      goNext();
     } finally {
       setLoading(false);
     }
@@ -64,7 +83,9 @@ function AuthPage() {
     setError(null);
     setLoading(true);
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: `${window.location.origin}/auth`,
+      redirect_uri: `${window.location.origin}/auth${
+        next ? `?next=${encodeURIComponent(next)}` : ""
+      }`,
     });
     if (result.error) {
       setError("Google sign-in failed. Please try again.");
@@ -79,7 +100,7 @@ function AuthPage() {
       setLoading(false);
       return;
     }
-    void navigate({ to: "/admin", replace: true });
+    goNext();
   };
 
   return (

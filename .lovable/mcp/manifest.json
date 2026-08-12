@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://icxollyvczdsapezqnlu.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "saha-creative-space",
+      "version": "0.1.0",
+      "title": "Saha Creative Space"
+    },
+    "tools": [
+      {
+        "name": "list_gallery_items",
+        "title": "List gallery items",
+        "description": "List photos and videos in Saha's Gallery, optionally filtered by media type or a text search over title, caption and location.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "media_type": {
+              "description": "Only return items of this media type.",
+              "type": "string",
+              "enum": [
+                "photo",
+                "video"
+              ]
+            },
+            "search": {
+              "description": "Free-text filter over title, caption and location.",
+              "type": "string",
+              "minLength": 1
+            },
+            "limit": {
+              "default": 25,
+              "description": "Max items to return.",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        },
+        "outputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {}
+              }
+            }
+          },
+          "required": [
+            "count",
+            "items"
+          ]
+        }
+      },
+      {
+        "name": "get_gallery_item",
+        "title": "Get gallery item",
+        "description": "Fetch one gallery item by id, including its public stream URL and download URL paths.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "The gallery item id."
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "item": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {}
+            }
+          },
+          "required": [
+            "item"
+          ]
+        }
+      },
+      {
+        "name": "update_gallery_item",
+        "title": "Update gallery item",
+        "description": "Update the title, caption, location, year or sort order of a gallery item. Only the gallery curator is allowed to make changes.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "The gallery item id."
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "caption": {
+              "type": "string",
+              "maxLength": 2000
+            },
+            "location": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "taken_year": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1800,
+                  "maximum": 2100
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sort_order": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "item": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {}
+            }
+          },
+          "required": [
+            "item"
+          ]
+        }
+      }
+    ]
+  }
+}
