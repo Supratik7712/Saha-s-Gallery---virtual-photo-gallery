@@ -38,13 +38,15 @@ export const listMedia = createServerFn({ method: "GET" }).handler(async () => {
 export const getAdminStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
+    const { data } = await context.supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
     const email =
       typeof context.claims["email"] === "string" ? context.claims["email"] : null;
-    return { isAdmin: data === true, email };
+    return { isAdmin: data != null, email };
   });
 
 export const createMediaItem = createServerFn({ method: "POST" })
