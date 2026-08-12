@@ -125,7 +125,9 @@ function GalleryPage() {
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
+      <VisitTracker />
       <SiteNav />
+
       <Hero />
       <main>
         <GalleryGrid
