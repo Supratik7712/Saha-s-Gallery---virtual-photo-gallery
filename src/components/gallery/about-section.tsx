@@ -1,5 +1,6 @@
 import portrait from "@/assets/about-portrait.webp.asset.json";
 import { site } from "@/lib/site";
+import { ExternalLink } from "./external-link";
 import { Reveal } from "./reveal";
 
 export function AboutSection() {
@@ -32,14 +33,12 @@ export function AboutSection() {
             ))}
           </div>
           <div className="mt-12 flex min-w-0 flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-6">
-            <a
+            <ExternalLink
               href={site.instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               className="max-w-full break-all font-mono text-xs uppercase tracking-[0.15em] underline decoration-accent underline-offset-8 sm:text-sm sm:tracking-[0.2em]"
             >
               {site.instagramHandle}
-            </a>
+            </ExternalLink>
             <span className="font-mono text-sm uppercase tracking-[0.2em] opacity-50">
               Archive.v2
             </span>

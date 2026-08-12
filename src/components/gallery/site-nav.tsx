@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { site } from "@/lib/site";
+import { ExternalLink } from "./external-link";
 
 export function SiteNav() {
   return (
@@ -13,14 +14,12 @@ export function SiteNav() {
         {site.navLabel}
       </Link>
       <div className="flex shrink-0 items-center gap-4 sm:gap-6 md:gap-8">
-        <a
+        <ExternalLink
           href={site.instagramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
           className="hidden font-mono text-[10px] uppercase tracking-[0.3em] transition-colors hover:text-accent sm:block"
         >
           Instagram
-        </a>
+        </ExternalLink>
         <div className="hidden h-px w-8 bg-foreground/20 md:block" aria-hidden="true" />
         <a
           href="#about"

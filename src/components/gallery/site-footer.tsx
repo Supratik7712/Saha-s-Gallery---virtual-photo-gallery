@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { site } from "@/lib/site";
+import { ExternalLink } from "./external-link";
 
 export function SiteFooter() {
   return (
@@ -10,14 +11,12 @@ export function SiteFooter() {
           {site.footerNote} © {new Date().getFullYear()} {site.name.toUpperCase()}
         </p>
         <div className="flex items-center gap-8">
-          <a
+          <ExternalLink
             href={site.instagramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
             className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-accent"
           >
             Instagram
-          </a>
+          </ExternalLink>
           <Link
             to="/auth"
             className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-accent"
