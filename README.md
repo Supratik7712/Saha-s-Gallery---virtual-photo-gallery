@@ -165,7 +165,7 @@ The project is built and hosted through [Lovable](https://lovable.dev) — pushi
 
 ## Using the MCP server
 
-Once deployed, AI clients can connect to `https<your-domain>/mcp`. Available tools:
+Once deployed, AI clients can connect to `https://<your-domain>/mcp`. Available tools:
 
 | Tool | Access | Description |
 | --- | --- | --- |
