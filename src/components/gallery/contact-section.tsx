@@ -1,10 +1,31 @@
-import { Instagram, Mail, Phone } from "lucide-react";
+import { useState } from "react";
+import { Check, Instagram, Mail, Phone } from "lucide-react";
 
 import { site } from "@/lib/site";
 import { Reveal } from "./reveal";
 
+const MAILTO = `mailto:${site.contact.email}?subject=${encodeURIComponent(
+  "Collaboration with S.Saha Photography",
+)}`;
+
 export function ContactSection() {
   const phone: string = site.contact.phone;
+  const [copied, setCopied] = useState(false);
+
+  const openMail = () => {
+    const opened = window.open(MAILTO, "_blank");
+    if (!opened) {
+      try {
+        window.top!.location.href = MAILTO;
+      } catch {
+        window.location.href = MAILTO;
+      }
+    }
+    void navigator.clipboard?.writeText(site.contact.email).then(() => {
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2500);
+    });
+  };
 
   return (
     <section id="contact" className="border-t border-border/50 px-6 py-24 md:py-32">
@@ -46,15 +67,18 @@ export function ContactSection() {
             />
           </div>
 
-          <a
-            href={`mailto:${site.contact.email}?subject=Collaboration%20with%20S.Saha%20Photography`}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={openMail}
             className="mt-10 inline-flex items-center gap-3 bg-accent px-8 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-accent-foreground ring-1 ring-accent transition-colors hover:bg-transparent hover:text-accent"
           >
-            <Mail className="h-4 w-4" aria-hidden="true" />
-            Start a conversation
-          </a>
+            {copied ? (
+              <Check className="h-4 w-4" aria-hidden="true" />
+            ) : (
+              <Mail className="h-4 w-4" aria-hidden="true" />
+            )}
+            {copied ? "Email copied" : "Start a conversation"}
+          </button>
         </Reveal>
       </div>
     </section>

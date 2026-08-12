@@ -5,6 +5,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { site } from "@/lib/site";
 
+const CURATOR_EMAIL = site.curatorEmail.toLowerCase();
+
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
@@ -17,7 +19,6 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +27,12 @@ function AuthPage() {
 
   useEffect(() => {
     void supabase.auth.getUser().then(({ data }) => {
-      if (data.user) void navigate({ to: "/admin", replace: true });
+      if (!data.user) return;
+      if (data.user.email?.toLowerCase() === CURATOR_EMAIL) {
+        void navigate({ to: "/admin", replace: true });
+      } else {
+        void supabase.auth.signOut();
+      }
     });
   }, [navigate]);
 
@@ -34,34 +40,21 @@ function AuthPage() {
     event.preventDefault();
     setError(null);
     setNotice(null);
+    if (email.trim().toLowerCase() !== CURATOR_EMAIL) {
+      setError("This studio is restricted to the gallery curator.");
+      return;
+    }
     setLoading(true);
     try {
-      if (mode === "signin") {
-        const { error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-        if (signInError) {
-          setError(signInError.message);
-          return;
-        }
-        void navigate({ to: "/admin", replace: true });
-      } else {
-        const { data, error: signUpError } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: window.location.origin },
-        });
-        if (signUpError) {
-          setError(signUpError.message);
-          return;
-        }
-        if (data.session) {
-          void navigate({ to: "/admin", replace: true });
-        } else {
-          setNotice("Check your email to confirm your account, then sign in.");
-        }
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (signInError) {
+        setError(signInError.message);
+        return;
       }
+      void navigate({ to: "/admin", replace: true });
     } finally {
       setLoading(false);
     }
@@ -79,6 +72,13 @@ function AuthPage() {
       return;
     }
     if (result.redirected) return;
+    const { data } = await supabase.auth.getUser();
+    if (data.user?.email?.toLowerCase() !== CURATOR_EMAIL) {
+      await supabase.auth.signOut();
+      setError("This studio is restricted to the gallery curator.");
+      setLoading(false);
+      return;
+    }
     void navigate({ to: "/admin", replace: true });
   };
 
@@ -123,7 +123,7 @@ function AuthPage() {
               type="password"
               required
               minLength={6}
-              autoComplete={mode === "signin" ? "current-password" : "new-password"}
+              autoComplete="current-password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               className="w-full border border-input bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
@@ -138,7 +138,7 @@ function AuthPage() {
             disabled={loading}
             className="w-full bg-primary py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-50"
           >
-            {loading ? "One moment…" : mode === "signin" ? "Sign in" : "Create account"}
+            {loading ? "One moment…" : "Sign in"}
           </button>
         </form>
 
@@ -159,17 +159,6 @@ function AuthPage() {
           Continue with Google
         </button>
 
-        <button
-          type="button"
-          onClick={() => {
-            setMode(mode === "signin" ? "signup" : "signin");
-            setError(null);
-            setNotice(null);
-          }}
-          className="mt-6 w-full text-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
-        >
-          {mode === "signin" ? "Need an account? Sign up" : "Have an account? Sign in"}
-        </button>
 
         <Link
           to="/"
