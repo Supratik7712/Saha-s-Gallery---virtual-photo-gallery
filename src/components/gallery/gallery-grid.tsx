@@ -36,9 +36,15 @@ export function GalleryGrid({ items, activeTab, counts, onTabChange, onSelect }:
             </button>
           ))}
         </div>
-        <p className="max-w-xs text-left font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground md:text-right">
-          {site.intro}
-        </p>
+        <div className="flex max-w-xs flex-col items-start gap-3 md:items-end">
+          <LiveViewers />
+          {site.intro ? (
+            <p className="text-left font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground md:text-right">
+              {site.intro}
+            </p>
+          ) : null}
+        </div>
+
       </div>
 
       {items.length === 0 ? (
