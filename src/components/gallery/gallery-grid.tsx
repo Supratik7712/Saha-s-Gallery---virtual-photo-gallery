@@ -17,16 +17,16 @@ interface GalleryGridProps {
 
 export function GalleryGrid({ items, activeTab, counts, onTabChange, onSelect }: GalleryGridProps) {
   return (
-    <section className="mx-auto max-w-screen-xl px-6 py-24 md:py-32">
-      <div className="mb-16 flex flex-col justify-between gap-8 border-b border-border/50 pb-8 md:mb-20 md:flex-row md:items-end">
-        <div className="flex gap-8">
+    <section className="mx-auto max-w-screen-xl px-4 py-20 sm:px-6 md:py-32">
+      <div className="mb-12 flex flex-col justify-between gap-8 border-b border-border/50 pb-8 md:mb-20 md:flex-row md:items-end">
+        <div className="flex gap-5 sm:gap-8">
           {(["photos", "videos"] as const).map((tab) => (
             <button
               key={tab}
               type="button"
               onClick={() => onTabChange(tab)}
               aria-pressed={activeTab === tab}
-              className={`pb-2 font-mono text-xs uppercase tracking-[0.2em] transition-colors ${
+              className={`min-h-11 pb-2 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors sm:text-xs sm:tracking-[0.2em] ${
                 activeTab === tab
                   ? "border-b border-accent text-foreground"
                   : "text-muted-foreground hover:text-foreground"
@@ -36,7 +36,7 @@ export function GalleryGrid({ items, activeTab, counts, onTabChange, onSelect }:
             </button>
           ))}
         </div>
-        <p className="max-w-xs text-right font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
+        <p className="max-w-xs text-left font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground md:text-right">
           {site.intro}
         </p>
       </div>
@@ -53,7 +53,7 @@ export function GalleryGrid({ items, activeTab, counts, onTabChange, onSelect }:
       ) : (
         <div
           key={activeTab}
-          className="animate-reveal grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8"
+          className="animate-reveal grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-12"
         >
           {items.map((item, index) => (
             <GalleryCard key={item.id} item={item} index={index} onSelect={onSelect} />
