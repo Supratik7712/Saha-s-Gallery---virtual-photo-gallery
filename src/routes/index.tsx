@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
@@ -18,7 +18,6 @@ import { VisitTracker } from "@/components/gallery/visit-tracker";
 const searchSchema = z.object({
   tab: fallback(z.string(), "photos").default("photos"),
   item: z.string().optional(),
-  q: fallback(z.string(), "").default(""),
 });
 
 
@@ -70,9 +69,9 @@ function GalleryPage() {
   const { data: items } = useSuspenseQuery(mediaQueryOptions);
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/" });
+  const [query, setQuery] = useState("");
 
   const activeTab: "photos" | "videos" = (search as any).tab === "videos" ? "videos" : "photos";
-  const query = String((search as any).q ?? "");
   const needle = query.trim().toLowerCase();
 
   const matches = needle
@@ -95,16 +94,7 @@ function GalleryPage() {
   const setTab = useCallback(
     (tab: "photos" | "videos") => {
       void navigate({
-        search: (prev: { tab: string; item?: string; q: string }) => ({ ...prev, tab, item: undefined }),
-      });
-    },
-    [navigate],
-  );
-  const setQuery = useCallback(
-    (q: string) => {
-      void navigate({
-        search: (prev: { tab: string; item?: string; q: string }) => ({ ...prev, q, item: undefined }),
-        replace: true,
+        search: (prev: { tab: string; item?: string }) => ({ ...prev, tab, item: undefined }),
       });
     },
     [navigate],
@@ -112,14 +102,14 @@ function GalleryPage() {
   const openItemById = useCallback(
     (id: string) => {
       void navigate({
-        search: (prev: { tab: string; item?: string; q: string }) => ({ ...prev, item: id }),
+        search: (prev: { tab: string; item?: string }) => ({ ...prev, item: id }),
       });
     },
     [navigate],
   );
   const closeItem = useCallback(() => {
     void navigate({
-      search: (prev: { tab: string; item?: string; q: string }) => ({ ...prev, item: undefined }),
+      search: (prev: { tab: string; item?: string }) => ({ ...prev, item: undefined }),
     });
   }, [navigate]);
 
