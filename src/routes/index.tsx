@@ -12,6 +12,8 @@ import { Lightbox } from "@/components/gallery/lightbox";
 import { AboutSection } from "@/components/gallery/about-section";
 import { ContactSection } from "@/components/gallery/contact-section";
 import { SiteFooter } from "@/components/gallery/site-footer";
+import { VisitTracker } from "@/components/gallery/visit-tracker";
+
 
 const searchSchema = z.object({
   tab: fallback(z.string(), "photos").default("photos"),
@@ -123,7 +125,9 @@ function GalleryPage() {
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
+      <VisitTracker />
       <SiteNav />
+
       <Hero />
       <main>
         <GalleryGrid
