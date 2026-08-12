@@ -8,7 +8,7 @@ export const site = {
   tagline: "A VIRTUAL EXHIBITION OF WHAT I SEE THROUGH MY LENS.\nA PART OF S.SAHA PHOTOGRAPHY.",
   intro: "",
   instagramHandle: "@S.SAHA_PHOTOGRAPHY",
-  instagramUrl: "https://instagram.com/S.SAHA_PHOTOGRAPHY",
+  instagramUrl: "https://www.instagram.com/s.saha_photography/",
   aboutHeading: "The One Behind the Lens",
   aboutBody: [
     "Hello, I am Supratik Saha, a photographer fascinated by the quiet tension of everyday moments. This gallery is my archive — a place where time slows down to the speed of a single exposure.",
