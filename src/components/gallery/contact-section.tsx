@@ -1,6 +1,7 @@
 import { Instagram, Mail, Phone } from "lucide-react";
 
 import { site } from "@/lib/site";
+import { ExternalLink } from "./external-link";
 import { Reveal } from "./reveal";
 
 const MAILTO = `mailto:${site.contact.email}?subject=${encodeURIComponent(
@@ -71,10 +72,10 @@ interface ContactRowProps {
 }
 
 function ContactRow({ icon, label, value, href, external }: ContactRowProps) {
+  const Wrapper = external ? ExternalLink : "a";
   return (
-    <a
+    <Wrapper
       href={href}
-      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
       className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-6 transition-colors hover:text-accent"
     >
       <div className="min-w-0">
@@ -86,6 +87,6 @@ function ContactRow({ icon, label, value, href, external }: ContactRowProps) {
       <span className="shrink-0 text-muted-foreground transition-colors group-hover:text-accent">
         {icon}
       </span>
-    </a>
+    </Wrapper>
   );
 }
