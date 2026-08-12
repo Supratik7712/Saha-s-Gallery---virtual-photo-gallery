@@ -10,6 +10,7 @@ import { Hero } from "@/components/gallery/hero";
 import { GalleryGrid } from "@/components/gallery/gallery-grid";
 import { Lightbox } from "@/components/gallery/lightbox";
 import { AboutSection } from "@/components/gallery/about-section";
+import { ContactSection } from "@/components/gallery/contact-section";
 import { SiteFooter } from "@/components/gallery/site-footer";
 
 const searchSchema = z.object({
@@ -110,6 +111,7 @@ function GalleryPage() {
           onSelect={openItemById}
         />
         <AboutSection />
+        <ContactSection />
       </main>
       <SiteFooter />
       {openItem ? (

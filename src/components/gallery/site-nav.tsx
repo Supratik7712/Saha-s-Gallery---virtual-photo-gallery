@@ -12,7 +12,7 @@ export function SiteNav() {
       >
         {site.navLabel}
       </Link>
-      <div className="flex items-center gap-8">
+      <div className="flex items-center gap-6 md:gap-8">
         <a
           href={site.instagramUrl}
           target="_blank"
@@ -21,21 +21,22 @@ export function SiteNav() {
         >
           Instagram
         </a>
-        <div className="h-px w-8 bg-foreground/20" aria-hidden="true" />
+        <div className="hidden h-px w-8 bg-foreground/20 md:block" aria-hidden="true" />
         <a
           href="#about"
           className="font-mono text-[10px] uppercase tracking-[0.3em] transition-colors hover:text-accent"
         >
           About
         </a>
-        <Link
-          to="/auth"
-          className="border border-current px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] transition-colors hover:bg-foreground hover:text-background"
+        <a
+          href="#contact"
+          className="font-mono text-[10px] uppercase tracking-[0.3em] transition-colors hover:text-accent"
         >
-          Sign in
-        </Link>
+          Contact
+        </a>
       </div>
     </nav>
   );
 }
+
 

@@ -15,4 +15,11 @@ export const site = {
     "Each image and video sequence is available for public download, a gift from my journey to yours. Beauty belongs to those who look long enough to find it.",
   ],
   footerNote: "BUILT FOR THE CURIOUS.",
+  contact: {
+    email: "supratiksaha2022s@gmail.com",
+    /** Leave empty to hide the phone row. */
+    phone: "",
+    note: "Open to collaborations, editorial shoots, brand partnerships and creative experiments. Reach out and let's talk about the frame you have in mind.",
+  },
 } as const;
+
