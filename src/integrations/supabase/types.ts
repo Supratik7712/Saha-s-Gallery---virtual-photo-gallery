@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      gallery_visits: {
+        Row: {
+          created_at: string
+          id: string
+          path: string
+          visitor_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          path?: string
+          visitor_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          path?: string
+          visitor_id?: string
+        }
+        Relationships: []
+      }
       media_items: {
         Row: {
           caption: string | null
