@@ -18,7 +18,8 @@ export const site = {
   contact: {
     email: "supratiksaha2022s@gmail.com",
     /** Leave empty to hide the phone row. */
-    phone: "",
+    phone: "+91-7044752795",
+
     note: "Open to collaborations, editorial shoots, brand partnerships and creative experiments. Reach out and let's talk about the frame you have in mind.",
   },
 } as const;
