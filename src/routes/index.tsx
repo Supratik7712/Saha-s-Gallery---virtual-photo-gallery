@@ -95,6 +95,7 @@ function GalleryPage() {
   const setTab = useCallback(
     (tab: "photos" | "videos") => {
       void navigate({
+        resetScroll: false,
         search: (prev: { tab: string; item?: string }) => ({ ...prev, tab, item: undefined }),
       });
     },
@@ -103,6 +104,7 @@ function GalleryPage() {
   const openItemById = useCallback(
     (id: string) => {
       void navigate({
+        resetScroll: false,
         search: (prev: { tab: string; item?: string }) => ({ ...prev, item: id }),
       });
     },
@@ -110,6 +112,7 @@ function GalleryPage() {
   );
   const closeItem = useCallback(() => {
     void navigate({
+      resetScroll: false,
       search: (prev: { tab: string; item?: string }) => ({ ...prev, item: undefined }),
     });
   }, [navigate]);

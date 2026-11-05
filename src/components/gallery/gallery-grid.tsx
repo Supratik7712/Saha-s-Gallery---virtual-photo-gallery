@@ -2,6 +2,7 @@ import { Download, Play, Search, X } from "lucide-react";
 
 import { mediaDownloadUrl, mediaUrl, type MediaItem } from "@/lib/media";
 import { site } from "@/lib/site";
+import { Button } from "@/components/ui/button";
 import { Reveal } from "./reveal";
 import { LiveViewers } from "./live-viewers";
 
@@ -35,19 +36,20 @@ export function GalleryGrid({
       <div className="mb-12 flex flex-col justify-between gap-8 border-b border-border/50 pb-8 md:mb-20 md:flex-row md:items-end">
         <div className="flex gap-5 sm:gap-8">
           {(["photos", "videos"] as const).map((tab) => (
-            <button
+            <Button
+              variant="ghost"
               key={tab}
               type="button"
               onClick={() => onTabChange(tab)}
               aria-pressed={activeTab === tab}
-              className={`min-h-11 pb-2 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors sm:text-xs sm:tracking-[0.2em] ${
+              className={`h-11 rounded-none px-0 pb-2 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors hover:bg-transparent sm:text-xs sm:tracking-[0.2em] ${
                 activeTab === tab
                   ? "border-b border-accent text-foreground"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {tab === "photos" ? `Photography ${counts.photos}` : `Motion ${counts.videos}`}
-            </button>
+            </Button>
           ))}
         </div>
         <div className="flex w-full max-w-sm flex-col items-start gap-3 md:items-end">
@@ -62,17 +64,19 @@ export function GalleryGrid({
               onChange={(event) => onQueryChange(event.target.value)}
               placeholder="Search captions or filenames"
               aria-label="Search photos and videos by caption or filename"
-              className="h-11 w-full border border-border/60 bg-secondary/40 pr-9 pl-9 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none"
+              className="h-12 w-full min-w-0 border border-border/60 bg-secondary/40 pr-12 pl-9 text-base text-foreground placeholder:text-xs placeholder:text-muted-foreground focus:border-accent focus:outline-none"
             />
             {searching ? (
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 type="button"
                 onClick={() => onQueryChange("")}
                 aria-label="Clear search"
-                className="absolute top-1/2 right-2 -translate-y-1/2 p-1 text-muted-foreground transition-colors hover:text-accent"
+                className="absolute top-1/2 right-0 h-11 w-11 -translate-y-1/2 text-muted-foreground transition-colors hover:bg-transparent hover:text-accent"
               >
                 <X className="h-3.5 w-3.5" />
-              </button>
+              </Button>
             ) : null}
           </div>
           <LiveViewers />
@@ -137,6 +141,7 @@ function GalleryCard({ item, index, onSelect }: GalleryCardProps) {
             preload="metadata"
             onMouseEnter={(e) => void e.currentTarget.play().catch(() => undefined)}
             onMouseLeave={(e) => e.currentTarget.pause()}
+            decoding="async"
             className="h-full w-full object-contain"
           />
         ) : (
@@ -181,7 +186,7 @@ function GalleryCard({ item, index, onSelect }: GalleryCardProps) {
           href={mediaDownloadUrl(item.file_path)}
           aria-label={`Download ${item.title}`}
           title="Download full quality"
-          className="shrink-0 text-muted-foreground transition-colors hover:text-accent"
+          className="flex h-11 w-11 shrink-0 items-center justify-center text-muted-foreground transition-colors hover:text-accent"
         >
           <Download className="h-4 w-4" />
         </a>

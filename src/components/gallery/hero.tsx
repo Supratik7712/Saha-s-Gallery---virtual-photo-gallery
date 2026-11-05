@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 
 export function Hero() {
   return (
-    <header className="relative flex min-h-[88svh] flex-col items-center justify-center overflow-hidden px-4 sm:min-h-[92vh] sm:px-6">
+    <header className="relative flex min-h-[76svh] flex-col items-center justify-center overflow-hidden px-4 pt-24 pb-28 sm:px-6">
       <div className="absolute inset-0 z-0 opacity-40 grayscale">
         <img
           src={heroImage}
@@ -16,7 +16,7 @@ export function Hero() {
       </div>
 
       <div className="animate-reveal relative z-10 text-center">
-        <h1 className="font-display text-6xl leading-none text-balance italic sm:text-8xl md:text-[10vw]">
+        <h1 className="font-display text-5xl leading-none text-balance italic min-[390px]:text-6xl sm:text-7xl lg:text-8xl xl:text-9xl">
           {site.name}
         </h1>
         <p className="mx-auto mt-6 max-w-[34rem] whitespace-pre-line font-mono text-[9px] leading-6 uppercase tracking-[0.2em] text-accent sm:text-[11px] sm:tracking-[0.4em]">

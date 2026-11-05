@@ -6,8 +6,8 @@ import { Reveal } from "./reveal";
 export function AboutSection() {
   return (
     <section id="about" className="bg-foreground py-20 text-background md:py-32">
-      <div className="mx-auto grid max-w-screen-xl grid-cols-1 items-center gap-14 px-4 sm:px-6 md:grid-cols-2 md:gap-24">
-        <Reveal className="relative">
+      <div className="mx-auto grid max-w-screen-xl grid-cols-1 items-center gap-14 px-4 sm:px-6 md:grid-cols-2 md:gap-12 lg:gap-24">
+        <Reveal className="relative min-w-0">
           <img
             src={portrait.url}
             alt="Supratik Saha holding a camera in front of a colourful city illustration"
@@ -23,7 +23,7 @@ export function AboutSection() {
         </Reveal>
 
 
-        <Reveal delay={150}>
+        <Reveal delay={150} className="min-w-0">
           <h2 className="mb-10 font-display text-4xl italic md:mb-12 md:text-6xl">
             {site.aboutHeading}
           </h2>
@@ -32,7 +32,7 @@ export function AboutSection() {
               <p key={paragraph.slice(0, 24)}>{paragraph}</p>
             ))}
           </div>
-          <div className="mt-12 flex min-w-0 flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-6">
+          <div className="mt-12 flex min-w-0 flex-col items-start gap-5 xl:flex-row xl:items-center xl:gap-6">
             <ExternalLink
               href={site.instagramUrl}
               className="max-w-full break-all font-mono text-xs uppercase tracking-[0.15em] underline decoration-accent underline-offset-8 sm:text-sm sm:tracking-[0.2em]"

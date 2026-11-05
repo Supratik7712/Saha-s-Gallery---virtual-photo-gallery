@@ -64,10 +64,10 @@ export function Lightbox({ items, currentId, onClose, onNavigate }: LightboxProp
       </button>
 
       <div
-        className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 md:grid-cols-12 md:gap-14"
+        className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 md:grid-cols-12 md:gap-8 lg:gap-14"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="flex items-center justify-center md:col-span-8">
+        <div className="flex min-w-0 items-center justify-center md:col-span-8">
           {item.media_type === "video" ? (
             <video
               key={item.id}
@@ -87,7 +87,7 @@ export function Lightbox({ items, currentId, onClose, onNavigate }: LightboxProp
           )}
         </div>
 
-        <div className="md:col-span-4">
+        <div className="min-w-0 break-words md:col-span-4">
           <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
             {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
           </p>
