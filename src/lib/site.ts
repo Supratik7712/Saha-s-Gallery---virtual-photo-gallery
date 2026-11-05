@@ -9,6 +9,8 @@ export const site = {
   intro: "",
   instagramHandle: "@S.SAHA_PHOTOGRAPHY",
   instagramUrl: "https://www.instagram.com/s.saha_photography/",
+  /** Bondin "support me" page — viewers can leave a tip here. */
+  supportUrl: "https://bondin.io/supratik/support",
   aboutHeading: "The One Behind the Lens",
   aboutBody: [
     "Hello, I am Supratik Saha, a photographer fascinated by the quiet tension of everyday moments. This gallery is my archive — a place where time slows down to the speed of a single exposure.",

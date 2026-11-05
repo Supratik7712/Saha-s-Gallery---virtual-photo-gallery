@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useRouter, type ErrorComponentProps } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
@@ -46,13 +46,14 @@ export const Route = createFileRoute("/")({
   errorComponent: GalleryError,
 });
 
-function GalleryError({ error }: { error: Error }) {
+function GalleryError({ error }: ErrorComponentProps) {
   const router = useRouter();
+  const message = error instanceof Error ? error.message : String(error);
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-6 text-center">
       <h1 className="font-display text-4xl italic">The gallery couldn't open</h1>
       <p className="mt-4 max-w-md text-sm text-muted-foreground">
-        {error.message || "Something interrupted the exhibition. Please try again."}
+        {message || "Something interrupted the exhibition. Please try again."}
       </p>
       <button
         type="button"

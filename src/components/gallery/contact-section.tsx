@@ -1,4 +1,4 @@
-import { Instagram, Mail, Phone } from "lucide-react";
+import { Heart, Instagram, Mail, Phone } from "lucide-react";
 
 import { site } from "@/lib/site";
 import { ExternalLink } from "./external-link";
@@ -48,15 +48,34 @@ export function ContactSection() {
               href={site.instagramUrl}
               external
             />
+            <ContactRow
+              icon={<Heart className="h-4 w-4" aria-hidden="true" />}
+              label="Support"
+              value="Leave a tip on Bondin"
+              href={site.supportUrl}
+              external
+            />
           </div>
 
-          <a
-            href={MAILTO}
-            className="mt-10 inline-flex min-h-12 max-w-full items-center justify-center gap-3 bg-accent px-6 py-4 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-accent-foreground ring-1 ring-accent transition-colors hover:bg-transparent hover:text-accent sm:px-8"
-          >
-            <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
-            Start a conversation
-          </a>
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <a
+              href={MAILTO}
+              className="inline-flex min-h-12 flex-1 items-center justify-center gap-3 bg-accent px-6 py-4 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-accent-foreground ring-1 ring-accent transition-colors hover:bg-transparent hover:text-accent sm:px-8"
+            >
+              <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
+              Start a conversation
+            </a>
+            <ExternalLink
+              href={site.supportUrl}
+              className="inline-flex min-h-12 flex-1 items-center justify-center gap-3 px-6 py-4 text-center font-mono text-[10px] uppercase tracking-[0.2em] ring-1 ring-accent transition-colors hover:bg-accent hover:text-accent-foreground sm:px-8"
+            >
+              <Heart className="h-4 w-4 shrink-0" aria-hidden="true" />
+              Support me
+            </ExternalLink>
+          </div>
+          <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+            Enjoying the frames? A small tip keeps this gallery alive.
+          </p>
         </Reveal>
       </div>
     </section>

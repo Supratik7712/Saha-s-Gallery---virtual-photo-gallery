@@ -12,6 +12,12 @@ export function SiteFooter() {
         </p>
         <div className="flex items-center gap-8">
           <ExternalLink
+            href={site.supportUrl}
+            className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent transition-colors hover:text-foreground"
+          >
+            Support me
+          </ExternalLink>
+          <ExternalLink
             href={site.instagramUrl}
             className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground transition-colors hover:text-accent"
           >
