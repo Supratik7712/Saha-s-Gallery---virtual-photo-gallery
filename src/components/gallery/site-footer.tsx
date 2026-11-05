@@ -10,7 +10,7 @@ export function SiteFooter() {
         <p className="max-w-full font-mono text-[9px] leading-5 uppercase tracking-[0.2em] text-muted-foreground sm:text-[10px] sm:tracking-[0.3em]">
           {site.footerNote} © {new Date().getFullYear()} {site.name.toUpperCase()}
         </p>
-        <div className="flex items-center gap-8">
+        <div className="flex min-w-0 flex-wrap items-center gap-x-5 gap-y-3 sm:gap-x-8 [&_a]:inline-flex [&_a]:min-h-11 [&_a]:items-center">
           <ExternalLink
             href={site.supportUrl}
             className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent transition-colors hover:text-foreground"

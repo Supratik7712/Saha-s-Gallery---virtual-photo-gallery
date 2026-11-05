@@ -57,7 +57,7 @@ export function ContactSection() {
             />
           </div>
 
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-10 flex flex-col gap-4 lg:flex-row">
             <a
               href={MAILTO}
               className="inline-flex min-h-12 flex-1 items-center justify-center gap-3 bg-accent px-6 py-4 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-accent-foreground ring-1 ring-accent transition-colors hover:bg-transparent hover:text-accent sm:px-8"

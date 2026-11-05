@@ -19,7 +19,15 @@ import { VisitorStats } from "@/components/gallery/visitor-stats";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
-    meta: [{ title: `Curator Studio — ${site.name}` }, { name: "robots", content: "noindex" }],
+    meta: [
+      { title: `Curator Studio — ${site.name}` },
+      { name: "description", content: "Manage the photography and films in Saha's Gallery." },
+      { property: "og:title", content: `Curator Studio — ${site.name}` },
+      { property: "og:description", content: "Manage the photography and films in Saha's Gallery." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
   }),
   component: AdminPage,
 });
@@ -267,26 +275,26 @@ function AdminStudio({ email }: { email: string | null }) {
   };
 
   const inputClass =
-    "w-full border border-input bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-accent";
+    "w-full min-w-0 border border-input bg-transparent px-4 py-3 text-base outline-none transition-colors focus:border-accent";
   const labelClass =
     "mb-2 block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground";
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="flex items-center justify-between border-b border-border/50 px-6 py-5">
-        <div>
+      <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-border/50 px-4 py-5 sm:px-6">
+        <div className="min-w-0">
           <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
             {site.name}
           </p>
-          <h1 className="mt-1 font-display text-2xl italic">Curator Studio</h1>
+          <h1 className="mt-1 truncate font-display text-xl italic sm:text-2xl">Curator Studio</h1>
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex shrink-0 items-center gap-3 sm:gap-6">
           <span className="hidden font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:block">
             {email}
           </span>
           <Link
             to="/"
-            className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-accent"
+            className="flex min-h-11 items-center font-mono text-[9px] uppercase tracking-[0.1em] text-muted-foreground transition-colors hover:text-accent sm:text-[10px] sm:tracking-[0.2em]"
           >
             View gallery
           </Link>
@@ -294,17 +302,17 @@ function AdminStudio({ email }: { email: string | null }) {
             type="button"
             onClick={() => void signOut()}
             aria-label="Sign out"
-            className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-accent"
+            className="flex h-11 w-11 items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-accent sm:w-auto"
           >
             <LogOut className="h-3.5 w-3.5" />
-            Sign out
+            <span className="hidden sm:inline">Sign out</span>
           </button>
         </div>
       </header>
 
       <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
         <VisitorStats />
-        <section className="border border-border/50 p-6 md:p-10">
+        <section className="border border-border/50 p-4 sm:p-6 md:p-10">
 
           <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-accent">
             Add a new piece
@@ -329,15 +337,15 @@ function AdminStudio({ email }: { email: string | null }) {
                     <img
                       src={pending.previewUrl}
                       alt="Selected file preview"
-                      className="max-h-48 object-contain"
+                      className="max-h-48 max-w-full object-contain"
                     />
                   ) : (
-                    <video src={pending.previewUrl} muted className="max-h-48" />
+                    <video src={pending.previewUrl} muted className="max-h-48 max-w-full" />
                   )
                 ) : (
                   <ImagePlus className="h-8 w-8 text-muted-foreground" aria-hidden="true" />
                 )}
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                <span className="max-w-full break-all font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                   {pending ? pending.file.name : "Choose a photo or video"}
                 </span>
               </label>
@@ -430,7 +438,7 @@ function AdminStudio({ email }: { email: string | null }) {
             <ul className="mt-8 divide-y divide-border/50 border-y border-border/50">
               {items.map((item) => (
                 <li key={item.id} className="py-4">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2 sm:gap-4">
                     <div className="h-14 w-20 shrink-0 overflow-hidden bg-secondary">
                       {item.media_type === "video" ? (
                         <video
@@ -451,7 +459,7 @@ function AdminStudio({ email }: { email: string | null }) {
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-display text-lg italic">{item.title}</p>
-                      <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                      <p className="mt-0.5 break-words font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                         {item.media_type}
                         {item.location ? ` · ${item.location}` : ""}
                         {item.taken_year ? ` · ${item.taken_year}` : ""}
@@ -461,7 +469,7 @@ function AdminStudio({ email }: { email: string | null }) {
                       type="button"
                       onClick={() => (editingId === item.id ? setEditingId(null) : startEdit(item))}
                       aria-label={`Edit ${item.title}`}
-                      className="p-2 text-muted-foreground transition-colors hover:text-accent"
+                      className="flex h-11 w-11 shrink-0 items-center justify-center text-muted-foreground transition-colors hover:text-accent"
                     >
                       <Pencil className="h-4 w-4" />
                     </button>
@@ -476,7 +484,7 @@ function AdminStudio({ email }: { email: string | null }) {
                         }
                       }}
                       aria-label={`Delete ${item.title}`}
-                      className={`p-2 font-mono text-[10px] uppercase tracking-[0.2em] transition-colors ${
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center font-mono text-[10px] uppercase tracking-[0.2em] transition-colors ${
                         confirmingDeleteId === item.id
                           ? "text-destructive"
                           : "text-muted-foreground hover:text-destructive"
