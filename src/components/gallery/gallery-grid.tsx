@@ -141,7 +141,6 @@ function GalleryCard({ item, index, onSelect }: GalleryCardProps) {
             preload="metadata"
             onMouseEnter={(e) => void e.currentTarget.play().catch(() => undefined)}
             onMouseLeave={(e) => e.currentTarget.pause()}
-            decoding="async"
             className="h-full w-full object-contain"
           />
         ) : (
@@ -149,6 +148,7 @@ function GalleryCard({ item, index, onSelect }: GalleryCardProps) {
             src={mediaUrl(item.file_path)}
             alt={item.caption ? `${item.title} — ${item.caption}` : item.title}
             loading="lazy"
+            decoding="async"
             className="h-full w-full object-contain"
           />
         )}

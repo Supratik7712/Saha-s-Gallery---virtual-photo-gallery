@@ -22,6 +22,11 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: `Curator Sign In — ${site.name}` },
+      { name: "description", content: "Private curator access for Saha's Gallery." },
+      { property: "og:title", content: `Curator Sign In — ${site.name}` },
+      { property: "og:description", content: "Private curator access for Saha's Gallery." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -129,7 +134,7 @@ function AuthPage() {
               autoComplete="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="w-full border border-input bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
+              className="w-full border border-input bg-transparent px-4 py-3 text-base outline-none transition-colors focus:border-accent"
             />
           </div>
           <div>
@@ -147,7 +152,7 @@ function AuthPage() {
               autoComplete="current-password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="w-full border border-input bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
+              className="w-full border border-input bg-transparent px-4 py-3 text-base outline-none transition-colors focus:border-accent"
             />
           </div>
 

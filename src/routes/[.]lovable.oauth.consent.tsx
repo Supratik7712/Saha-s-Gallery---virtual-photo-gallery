@@ -26,6 +26,17 @@ const oauth = () => (supabase.auth as unknown as { oauth: OAuthApi }).oauth;
 
 export const Route = createFileRoute("/.lovable/oauth/consent")({
   ssr: false,
+  head: () => ({
+    meta: [
+      { title: `Authorize Gallery Tools — ${site.name}` },
+      { name: "description", content: "Review an agent connection request for Saha's Gallery." },
+      { property: "og:title", content: `Authorize Gallery Tools — ${site.name}` },
+      { property: "og:description", content: "Review an agent connection request for Saha's Gallery." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   validateSearch: (s: Record<string, unknown>) => ({
     authorization_id: typeof s["authorization_id"] === "string" ? s["authorization_id"] : "",
   }),
