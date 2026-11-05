@@ -48,7 +48,7 @@ export function GalleryGrid({
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              {tab === "photos" ? `Photography ${counts.photos}` : `Motion ${counts.videos}`}
+              {tab === "photos" ? `Photos ${counts.photos}` : `Videos ${counts.videos}`}
             </Button>
           ))}
         </div>

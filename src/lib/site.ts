@@ -5,7 +5,7 @@
 export const site = {
   name: "Saha's Gallery",
   navLabel: "S.SAHA / 2026",
-  tagline: "A VIRTUAL EXHIBITION OF WHAT I SEE THROUGH MY LENS.\nA PART OF S.SAHA PHOTOGRAPHY.",
+  tagline: "EXPERIENCE WHAT I SEE THROUGH MY LENS.\nA PART OF S.SAHA PHOTOGRAPHY.",
   intro: "",
   instagramHandle: "@S.SAHA_PHOTOGRAPHY",
   instagramUrl: "https://www.instagram.com/s.saha_photography/",
